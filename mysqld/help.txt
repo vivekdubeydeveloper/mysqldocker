@@ -1,0 +1,12 @@
+------------install mysql docker-----------------------
+docker network create employee-mysql
+docker container run --name mysqldocker -p 6033:3306 --network employee-mysql -e MYSQL_ROOT_PASSWORD=root -e MYSQL_DATABASE=mysqldocker -d mysql:8
+
+docker container exec -it mysqldocker bash
+
+docker image build -t mysqld .
+
+docker container run --network employee-mysql --name mysqld -p 8080:8080 -d mysqld
+
+
+mvn clean install -DskipTests
